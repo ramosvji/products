@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: product
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/prueba?connectTimeoutMS=2000&socketTimeoutMS=2000
+
+server:
+  port: 8020
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      mongoServiceCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+
+
+logging:
+  level:
+    org.mongodb.driver: DEBUG
